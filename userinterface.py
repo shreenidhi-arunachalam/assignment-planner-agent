@@ -1,18 +1,13 @@
 import streamlit as st
 from app import get_plan
 
-# -----------------------------
-# PAGE CONFIG
-# -----------------------------
+
 st.set_page_config(
     page_title="AI Assignment Planner Agent",
     page_icon="",
     layout="wide"
 )
 
-# -----------------------------
-# CUSTOM CSS (card UI upgrade)
-# -----------------------------
 st.markdown("""
 <style>
 
@@ -49,26 +44,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
-# HEADER
-# -----------------------------
+
 st.markdown("<div class='title'>AI Assignment Planner Agent</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Turns messy assignments into structured study + execution plans</div>", unsafe_allow_html=True)
 
 st.divider()
 
-# -----------------------------
-# INPUT
-# -----------------------------
+
 user_input = st.text_area(
     "Enter your assignment details",
     placeholder="e.g. COMP2010 assignment due July 20 on graphs and algorithms",
     height=120
 )
 
-# -----------------------------
-# BUTTON
-# -----------------------------
+
 if st.button("Generate plan"):
 
     if not user_input.strip():
@@ -94,9 +83,7 @@ if st.button("Generate plan"):
 
     st.divider()
 
-    # -----------------------------
-    # OUTPUT LAYOUT
-    # -----------------------------
+    
     col1, col2 = st.columns([2, 1])
 
     with col1:
@@ -124,9 +111,7 @@ if st.button("Generate plan"):
 
     st.divider()
 
-    # -----------------------------
-    # DOWNLOAD OPTION (nice touch for capstone)
-    # -----------------------------
+   
     st.download_button(
         label="Download Plan as Text",
         data=result,
