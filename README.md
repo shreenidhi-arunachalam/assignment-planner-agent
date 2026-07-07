@@ -2,7 +2,7 @@
 
 StudyHelp is an AI-powered assignment planning assistant that transforms raw student assignment descriptions into structured, realistic study plans.
 
-Instead of producing a single AI response, StudyHelp uses a multi-agent system consisting of a **Planner Agent**, **Critic Agent**, and **Final Refinement Agent** powered by **Google Gemini 2.5 Flash**.
+Instead of producing a single AI response, StudyHelp uses a multi-agent system consisting of a Planner Agent, Critic Agent, and Final Refinement Agent powered by Google Gemini 2.5 Flash.
 
 The goal of StudyHelp is to help students overcome one of the biggest challenges when starting complex assignments: understanding where to begin and how to organise their workload effectively.
 
@@ -50,31 +50,19 @@ Produces the final user-friendly output by:
 
 # System Architecture
 
-```
-User Assignment Input
-          |
-          ↓
-Streamlit User Interface
-          |
-          ↓
-Python Backend (get_plan)
-          |
-          ↓
-------------------------------
-|                            |
-Planner Agent                 |
-          ↓                   |
-Critic Agent                  |
-          ↓                   |
-Final Refinement Agent        |
-          ↓                   |
-------------------------------
-          |
-          ↓
-Final Study Plan Output
-```
+StudyHelp follows a sequential multi-agent architecture consisting of four main components: the Streamlit User Interface, Python Backend, Planner Agent, Critic Agent, and Final Refinement Agent.
 
-The system follows a sequential workflow where each agent receives the previous agent's output and improves it.
+The workflow begins when the user enters an assignment description through the Streamlit User Interface. This input is passed to the Python backend, where the `get_plan()` function controls the execution of the AI agent pipeline.
+
+The Planner Agent receives the user's assignment description and generates an initial structured plan containing priority tasks, suggested workflow, and estimated time requirements.
+
+The generated plan is then passed to the Critic Agent, which evaluates the quality of the plan by identifying missing steps, unrealistic assumptions, and possible improvements.
+
+After refinement, the Final Refinement Agent processes the improved plan by enhancing clarity, removing repetition, and producing a final student-friendly study schedule.
+
+The completed study plan is returned to the Streamlit interface, where the user can view and download the final output.
+
+This sequential architecture allows each agent to have a specialised responsibility while enabling multiple stages of planning, evaluation, and refinement.
 
 ---
 
