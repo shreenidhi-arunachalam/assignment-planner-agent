@@ -8,6 +8,7 @@ st.set_page_config(
     layout="wide"
 )
 
+
 st.markdown("""
 <style>
 
@@ -45,17 +46,30 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-st.markdown("<div class='title'>AI Assignment Planner Agent</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Turns messy assignments into structured study + execution plans</div>", unsafe_allow_html=True)
+
+# Title
+st.markdown(
+    "<div class='title'>AI Assignment Planner Agent</div>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<div class='subtitle'>Turns messy assignments into structured study + execution plans</div>",
+    unsafe_allow_html=True
+)
+
 
 st.divider()
 
 
+
+# User Input
 user_input = st.text_area(
     "Enter your assignment details",
     placeholder="e.g. COMP2010 assignment due July 20 on graphs and algorithms",
     height=120
 )
+
 
 
 if st.button("Generate plan"):
@@ -64,57 +78,102 @@ if st.button("Generate plan"):
         st.warning("Please enter an assignment first")
         st.stop()
 
-   
+
     st.markdown("## Agent Pipeline")
 
-    step_placeholder = st.empty()
 
-    with step_placeholder.container():
-        st.markdown("<div class='agent-step'>Step 1: Parsing assignment...</div>", unsafe_allow_html=True)
+   
+    st.markdown(
+        "<div class='agent-step'>Step 1: Parsing assignment...</div>",
+        unsafe_allow_html=True
+    )
 
-    with st.spinner("Thinking..."):
-        st.markdown("<div class='agent-step'>Step 2: Building structured plan...</div>", unsafe_allow_html=True)
+
+    with st.spinner("Planner agent creating plan..."):
+
+        st.markdown(
+            "<div class='agent-step'>Step 2: Building structured plan...</div>",
+            unsafe_allow_html=True
+        )
 
         result = get_plan(user_input)
 
-        st.markdown("<div class='agent-step'>Step 3: Finalizing output...</div>", unsafe_allow_html=True)
+
+        st.markdown(
+            "<div class='agent-step'>Step 3: Critic reviewing and refining...</div>",
+            unsafe_allow_html=True
+        )
+
+
+        st.markdown(
+            "<div class='agent-step'>Step 4: Final agent polishing output...</div>",
+            unsafe_allow_html=True
+        )
+
 
     st.success("Plan generated successfully!")
 
+
     st.divider()
 
-    
+
+
+    # Layout
     col1, col2 = st.columns([2, 1])
 
+
     with col1:
+
         st.subheader("Generated Plan")
 
-        st.markdown(f"""
-        <div class="block">
-        {result}
-        </div>
-        """, unsafe_allow_html=True)
+
+        # Only show final plan
+        st.markdown(result["final_plan"])
+
+
 
     with col2:
+
         st.subheader("Summary Panel")
 
-        st.info("Breakdown generated using Gemini AI")
+
+        st.info("Generated using Gemini Multi-Agent System")
+
 
         st.markdown("""
-        - Step-based planning
-        - Priority ordering
-        - Time estimation
-        - Study scheduling
+        **Agents Used:**
+
+         Planner Agent  
+        - Breaks assignment into tasks  
+        - Creates timeline  
+        - Estimates workload  
+
+
+        Critic Agent  
+        - Finds weak planning assumptions  
+        - Improves structure  
+        - Adds missing steps  
+
+
+         Final Refiner Agent  
+        - Improves readability  
+        - Removes repetition  
+        - Produces final output  
         """)
+
 
         st.success("Ready for execution")
 
+
+
     st.divider()
+
+
 
    
     st.download_button(
-        label="Download Plan as Text",
-        data=result,
+        label=" Download Plan as Text",
+        data=result["final_plan"],
         file_name="assignment_plan.txt",
         mime="text/plain"
     )

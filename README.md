@@ -7,7 +7,7 @@ An AI-powered assignment planning tool that turns student assignments into struc
 
 # Quick Start 
 
-## 1. Install dependencies
+## Easy steps
 ```bash
 pip install streamlit python-dotenv google-genai
 
